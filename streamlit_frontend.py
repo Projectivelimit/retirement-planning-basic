@@ -23,7 +23,6 @@ def main():
     adjust_for_inflation = st.sidebar.checkbox("Adjust Contributions For Inflation.", value = True)
     #st.sidebar.write("Explanation")
     st.sidebar.caption("Monthly payments are then updated to match last year's inflation by the beginning of each year.")
-    st.sidebar.caption("Disclaimer: Monthly payments are then updated to match last year's inflation by the beginning of each year.")
 
     df = simulate_retirement_planning(initial_age, retirement_age, end_age, 
                              monthly_contribution, monthly_spending, 
