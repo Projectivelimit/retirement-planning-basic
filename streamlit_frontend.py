@@ -46,17 +46,23 @@ def main():
     )
 
     # Area for positive and negative balances
-    area_pos = alt.Chart(df_pos).mark_area(opacity=0.3, color='green').encode(
-        x = 'Age:Q',
-        y = 'Balance:Q'
-    )
-    area_neg = alt.Chart(df_neg).mark_area(opacity=0.3, color='red').encode(
-        x = 'Age:Q',
-        y = 'Balance:Q'
-    )
+    charts = [line]
+    
+    if not df_pos.empty:
+        area_pos = alt.Chart(df_pos).mark_area(opacity=0.3, color='green').encode(
+            x = 'Age:Q',
+            y = 'Balance:Q'
+        )
+        charts.append(area_pos)
+    if not df_neg.empty:    
+        area_neg = alt.Chart(df_neg).mark_area(opacity=0.3, color='red').encode(
+            x = 'Age:Q',
+            y = 'Balance:Q'
+        )
+        charts.append(area_neg)
 
     # Composing charts
-    chart = (area_pos + area_neg + line).properties(
+    chart = alt.layer(*charts).properties(
         width = 700,
         height = 400,
         title = "Retirement Savings Projection (inflation adjusted)"
