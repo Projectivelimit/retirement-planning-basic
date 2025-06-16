@@ -70,9 +70,6 @@ def main():
     )
 
     st.altair_chart(chart, use_container_width = True)
-    if st.button("Refresh Chart"):
-        st.cache_data.clear()
-        st.rerun()
 
     st.subheader("Detailed Balance Sheet (inflation ajusted)")
     st.dataframe(df.style.format({"Balance": "{:,.2f}"}))
@@ -93,6 +90,10 @@ While we strive to ensure the accuracy and reliability of the tool, we *make no 
 
 By using this tool, you acknowledge and agree that the creators, developers, and distributors of this tool **bear no responsibility or liability** for any losses, damages, or consequences of any kind arising from its use.
 """)
+
+if st.button("Clear Cache"):
+        st.cache_data.clear()
+        st.rerun()
 
 if __name__ == "__main__":
     main()
