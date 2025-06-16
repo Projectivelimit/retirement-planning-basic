@@ -91,6 +91,8 @@ While we strive to ensure the accuracy and reliability of the tool, we *make no 
 By using this tool, you acknowledge and agree that the creators, developers, and distributors of this tool **bear no responsibility or liability** for any losses, damages, or consequences of any kind arising from its use.
 """)
 
+    st.divider()
+    
     if st.button("Clear Cache"):
         st.cache_data.clear()
         st.rerun()
