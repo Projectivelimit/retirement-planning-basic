@@ -70,6 +70,9 @@ def main():
     )
 
     st.altair_chart(chart, use_container_width = True)
+    if st.button("Refresh Chart"):
+        st.cache_data.clear()
+        st.rerun()
 
     st.subheader("Detailed Balance Sheet (inflation ajusted)")
     st.dataframe(df.style.format({"Balance": "{:,.2f}"}))
