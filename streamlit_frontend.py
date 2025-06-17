@@ -21,7 +21,7 @@ def main():
     annual_return = st.sidebar.slider("Expected Annual Return (%)", 0.0, 15.0, 5.0)
     st.sidebar.caption("5% is a conservative estimate for a world index.")
     annual_inflation = st.sidebar.slider("Expected Annual Inflation (%)", -2.5, 10.0, 2.25, step = 0.125)
-    adjust_for_inflation = st.sidebar.checkbox("Adjust Contributions For Inflation.", value = True)
+    adjust_for_inflation = st.sidebar.checkbox("Adjust Deposits For Inflation.", value = True)
     #st.sidebar.write("Explanation")
     st.sidebar.caption("Monthly payments are then updated to match last year's inflation by the beginning of each year.")
 
