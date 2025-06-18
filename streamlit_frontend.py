@@ -24,12 +24,19 @@ def main():
     adjust_for_inflation = st.sidebar.checkbox("Adjust Deposits For Inflation.", value = True)
     #st.sidebar.write("Explanation")
     st.sidebar.caption("Monthly deposits are then updated to match last year's inflation by the beginning of each year.")
+    tax_rate = st.sidebar.slider("Expected Tax Rate On Payout (%).", 0.0, 75., 0.0, step = 2.5)
 
-    df = simulate_retirement_planning(initial_age, retirement_age, end_age, 
-                             monthly_contribution, monthly_spending, 
-                             annual_return, initial_savings, 
-                             inflation_rate = annual_inflation,
-                             inflation_adjustment = adjust_for_inflation)
+    df = simulate_retirement_planning(initial_age, 
+                                    retirement_age, 
+                                    end_age, 
+                                    monthly_contribution, 
+                                    monthly_spending, 
+                                    annual_return, 
+                                    initial_savings, 
+                                    inflation_rate = annual_inflation,
+                                    inflation_adjustment = adjust_for_inflation,
+                                    tax_rate = tax_rate
+                             )
 
     
     st.subheader("Projected Account Balance Over Time")
