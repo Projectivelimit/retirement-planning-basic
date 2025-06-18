@@ -76,7 +76,7 @@ def main():
         title = "Retirement Savings Projection (inflation adjusted)"
     )
 
-    st.altair_chart(chart, use_container_width = True)
+    st.altair_chart(chart, use_container_width = True, key = "chart_projection")
 
     st.subheader("Detailed Balance Sheet (inflation ajusted)")
     st.dataframe(df.style.format({"Balance": "{:,.2f}"}))
