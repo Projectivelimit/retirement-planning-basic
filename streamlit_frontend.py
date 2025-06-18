@@ -48,7 +48,7 @@ def main():
 
     # Base line chart
     line = alt.Chart(df).mark_line().encode(
-        x = alt.X('Age:Q'),
+        x = alt.X('Age:Q', scale=alt.Scale(domain=[initial_age, end_age])),
         y = alt.Y('Balance:Q'),
         tooltip=['Age', 'Balance']  
     )
@@ -58,13 +58,13 @@ def main():
     
     if not df_pos.empty:
         area_pos = alt.Chart(df_pos).mark_area(opacity=0.3, color='green').encode(
-            x = 'Age:Q',
+            x = alt.X('Age:Q', scale=alt.Scale(domain=[initial_age, end_age])),
             y = 'Balance:Q'
         )
         charts.append(area_pos)
     if not df_neg.empty:    
         area_neg = alt.Chart(df_neg).mark_area(opacity=0.3, color='red').encode(
-            x = 'Age:Q',
+            x = alt.X('Age:Q', scale=alt.Scale(domain=[initial_age, end_age])),
             y = 'Balance:Q'
         )
         charts.append(area_neg)
@@ -76,7 +76,10 @@ def main():
         title = "Retirement Savings Projection (inflation adjusted)"
     )
 
-    st.altair_chart(chart, use_container_width = True, key = "chart_projection")
+    # Convert chart to Vega-Lite spec and display it 
+    chart_spec = chart.to_dict()
+    st.vega_lite_chart(chart_spec, use_container_width=True)
+
 
     st.subheader("Detailed Balance Sheet (inflation ajusted)")
     st.dataframe(df.style.format({"Balance": "{:,.2f}"}))
