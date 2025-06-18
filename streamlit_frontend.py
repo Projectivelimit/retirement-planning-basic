@@ -18,12 +18,12 @@ def main():
     initial_savings = st.sidebar.number_input("Initial Savings", value = 20000.0, step = 1000.0)
     monthly_contribution = st.sidebar.number_input("Monthly Deposits Before Retirement", value = 500.0, step = 50.0)
     monthly_spending = st.sidebar.number_input("Monthly Payouts During Retirement", value = 2000.0, step = 100.0)
-    annual_return = st.sidebar.slider("Expected Annual Return (%)", 0.0, 15.0, 5.0)
+    annual_return = st.sidebar.slider("Expected Annual Return (%)", 0.0, 15.0, 5.0, step = 0.05)
     st.sidebar.caption("5% is a conservative estimate for a world index.")
     annual_inflation = st.sidebar.slider("Expected Annual Inflation (%)", -2.5, 10.0, 2.25, step = 0.125)
     adjust_for_inflation = st.sidebar.checkbox("Adjust Deposits For Inflation.", value = True)
     #st.sidebar.write("Explanation")
-    st.sidebar.caption("Monthly payments are then updated to match last year's inflation by the beginning of each year.")
+    st.sidebar.caption("Monthly deposits are then updated to match last year's inflation by the beginning of each year.")
 
     df = simulate_retirement_planning(initial_age, retirement_age, end_age, 
                              monthly_contribution, monthly_spending, 
