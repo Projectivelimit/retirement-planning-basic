@@ -6,6 +6,8 @@ from backend import simulate_retirement_planning
 
 
 def main():
+    st.set_page_config(initial_sidebar_state="expanded")
+
     st.title("Retirement Savings Simulation")
 
     st.sidebar.header("Adjust Parameters")
