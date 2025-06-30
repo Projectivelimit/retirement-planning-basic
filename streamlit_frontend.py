@@ -51,13 +51,12 @@ def main():
     # Create figure
     fig = go.Figure()
 
-    # Add main line
     fig.add_trace(go.Scatter(
         x = df['Age'],
         y = df['Balance'],
         mode = 'lines',
         name = 'Balance',
-        line = dict(color='rgba(2, 48, 32, 0.85)'),
+        line = dict(color='rgba(51, 255, 255, 0.95)'),
         hovertemplate='Age: %{x}<br>Balance: %{y}<extra></extra>'
     ))
 
@@ -69,7 +68,7 @@ def main():
             fill = 'tozeroy',
             mode = 'none',
             name = 'Positive Balance',
-            fillcolor = 'rgba(0, 128, 0, 0.3)'  # green with 30% opacity
+            fillcolor = 'rgba(0, 128, 0, 0.3)'  # green 
         ))
 
     # Add negative area
@@ -80,7 +79,7 @@ def main():
             fill = 'tozeroy',
             mode = 'none',
             name = 'Negative Balance',
-            fillcolor = 'rgba(255, 0, 0, 0.3)'  # red with 30% opacity
+            fillcolor = 'rgba(255, 0, 0, 0.3)'  # red 
         ))
 
     # Update layout
