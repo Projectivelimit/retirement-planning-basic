@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-import altair as alt
+import plotly.graph_objects as go
 import math
 from backend import simulate_retirement_planning
 
@@ -48,39 +48,60 @@ def main():
     df_pos = df[df['Balance'] >= 0].copy()
     df_neg = df[df['Balance'] < 0].copy()
 
-    # Base line chart
-    line = alt.Chart(df).mark_line().encode(
-        x = alt.X('Age:Q', scale=alt.Scale(domain=[initial_age, end_age])),
-        y = alt.Y('Balance:Q'),
-        tooltip=['Age', 'Balance']  
-    )
+    # Create figure
+    fig = go.Figure()
 
-    # Area for positive and negative balances
-    charts = [line]
-    
+    # Add main line
+    fig.add_trace(go.Scatter(
+        x = df['Age'],
+        y = df['Balance'],
+        mode = 'lines',
+        name = 'Balance',
+        line = dict(color='rgba(2, 48, 32, 0.85)'),
+        hovertemplate='Age: %{x}<br>Balance: %{y}<extra></extra>'
+    ))
+
+    # Add positive area
     if not df_pos.empty:
-        area_pos = alt.Chart(df_pos).mark_area(opacity=0.3, color='green').encode(
-            x = alt.X('Age:Q', scale=alt.Scale(domain=[initial_age, end_age])),
-            y = 'Balance:Q'
-        )
-        charts.append(area_pos)
-    if not df_neg.empty:    
-        area_neg = alt.Chart(df_neg).mark_area(opacity=0.3, color='red').encode(
-            x = alt.X('Age:Q', scale=alt.Scale(domain=[initial_age, end_age])),
-            y = 'Balance:Q'
-        )
-        charts.append(area_neg)
+        fig.add_trace(go.Scatter(
+            x = df_pos['Age'],
+            y = df_pos['Balance'],
+            fill = 'tozeroy',
+            mode = 'none',
+            name = 'Positive Balance',
+            fillcolor = 'rgba(0, 128, 0, 0.3)'  # green with 30% opacity
+        ))
 
-    # Composing charts
-    chart = alt.layer(*charts).properties(
+    # Add negative area
+    if not df_neg.empty:
+        fig.add_trace(go.Scatter(
+            x = df_neg['Age'],
+            y = df_neg['Balance'],
+            fill = 'tozeroy',
+            mode = 'none',
+            name = 'Negative Balance',
+            fillcolor = 'rgba(255, 0, 0, 0.3)'  # red with 30% opacity
+        ))
+
+    # Update layout
+    fig.update_layout(
+        title = "Retirement Savings Projection (inflation adjusted)",
+        xaxis_title = "Age",
+        yaxis_title = "Balance",
+        xaxis = dict(range = [initial_age, end_age], 
+                    showgrid = True     
+                    #gridcolor = 'lightgray'
+                    ),
+        yaxis=dict(showgrid = True     
+                    #gridcolor = 'lightgray'
+                    ),
         width = 700,
-        height = 400,
-        title = "Retirement Savings Projection (inflation adjusted)"
+        height = 500,
+        showlegend = False
     )
 
-    # Convert chart to Vega-Lite spec and display it 
-    chart_spec = chart.to_dict()
-    st.vega_lite_chart(chart_spec, use_container_width=True)
+    # Display plot
+    st.plotly_chart(fig, use_container_width = True)
 
 
     st.subheader("Detailed Balance Sheet (inflation ajusted)")
