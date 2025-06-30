@@ -1,5 +1,5 @@
 #+title: Readme
-#+author:
+#+author: Ingmar Metzler
 
 
 
@@ -9,7 +9,7 @@
 
 * Description
 This repository contains the minimal version of my private financial planning tool.
-While it lacks all advanced features of the full version, it is suitable to provide people with an intuition about investing for retirement.
+While it lacks all advanced features of the full version, it is suitable to provide people with an intuition about privately investing for retirement.
 * Terms and Conditions
 ** Legal Disclaimer
 
